@@ -168,12 +168,7 @@ wifi_error init_wifi_vendor_hal_func_table(wifi_hal_fn* fn) {
     SET_IF_NOT_NULL(fn, fln, wifi_virtual_interface_delete);
     SET_IF_NOT_NULL(fn, fln, wifi_map_dscp_access_category);
     SET_IF_NOT_NULL(fn, fln, wifi_reset_dscp_mapping);
-    // Deliberately not forwarding wifi_set_subsystem_restart_handler. The
-    // MediaTek implementation predates this entry and faults when the AIDL
-    // HAL calls it right after configuring the chip, which kills the HAL and
-    // leaves the framework unable to ever set a chip mode. The AOSP stub left
-    // in place reports NOT_SUPPORTED, and WifiChip::configureChipInternal
-    // ignores that return value, so nothing else depends on it.
+    SET_IF_NOT_NULL(fn, fln, wifi_set_subsystem_restart_handler);
     SET_IF_NOT_NULL(fn, fln, wifi_get_supported_iface_name);
     SET_IF_NOT_NULL(fn, fln, wifi_early_initialize);
     SET_IF_NOT_NULL(fn, fln, wifi_get_chip_feature_set);
